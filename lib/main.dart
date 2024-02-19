@@ -1,4 +1,38 @@
 import 'package:flutter/material.dart';
+
+void main() {
+  runApp(
+    MaterialApp(
+      title: 'Test app',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const HomePage(),
+    ),
+  );
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Home page'),
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+
+/* 1 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:math' as math show Random;
@@ -22,7 +56,6 @@ extension RandomElement<T> on Iterable<T> {
 }
 
 class NamesCubit extends Cubit<String?> {
-  //NamesCubit() : super(names.getRandomElement());
   NamesCubit() : super(null);
 
   void pickRandomName() => emit(names.getRandomElement());
@@ -104,3 +137,4 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+ 1 */
