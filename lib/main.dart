@@ -171,18 +171,6 @@ class HomePage extends StatelessWidget {
                   },
                 ),
               );
-/*               return Column(
-                children: [
-                  Text(
-                    fetchResult.isRetrievedFromCache
-                        ? 'Retrieved from cache'
-                        : 'Retrieved from network',
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                  ...fetchResult.persons
-                      .map((person) => Text('${person.name} - ${person.age}')),
-                ],
-              ); */
             }),
           ),
         ],
