@@ -4,6 +4,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'dart:developer' as devtools show log;
+
+extension Log on Object {
+  void log() => devtools.log(toString());
+}
 
 @immutable
 abstract class LoadAction {
@@ -43,6 +48,9 @@ class Person {
   Person.fromJson(Map<String, dynamic> json)
       : name = json['name'] as String,
         age = json['age'] as int;
+
+  @override
+  String toString() => 'Person: name: $name, age: $age';
 }
 
 Future<Iterable<Person>> getPersons(String url) => HttpClient()
@@ -93,6 +101,10 @@ class PersonsBloc extends Bloc<LoadAction, FetchResult?> {
   final Map<PersonUrl, Iterable<Person>> _cache = {};
 }
 
+extension Subscript<T> on Iterable<T> {
+  T? operator [](int index) => length > index ? elementAt(index) : null;
+}
+
 void main() {
   runApp(
     MaterialApp(
@@ -118,14 +130,68 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Home page'),
       ),
+      body: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                onPressed: () => context.read<PersonsBloc>().add(
+                      const LoadPersonsAction(url: PersonUrl.persons1),
+                    ),
+                child: const Text('Load persons 1'),
+              ),
+              ElevatedButton(
+                onPressed: () => context.read<PersonsBloc>().add(
+                      const LoadPersonsAction(url: PersonUrl.persons2),
+                    ),
+                child: const Text('Load persons 2'),
+              ),
+            ],
+          ),
+          BlocBuilder<PersonsBloc, FetchResult?>(
+            buildWhen: (previousResult, currentResult) {
+              return previousResult?.persons != currentResult?.persons;
+            },
+            builder: ((context, fetchResult) {
+              fetchResult?.log();
+              final persons = fetchResult?.persons;
+              if (persons == null) {
+                return const SizedBox();
+              }
+              return Expanded(
+                child: ListView.builder(
+                  itemCount: persons.length,
+                  itemBuilder: (context, index) {
+                    final person = persons[index]!;
+                    return ListTile(
+                      title: Text(person.name),
+                      subtitle: Text('Age: ${person.age}'),
+                    );
+                  },
+                ),
+              );
+/*               return Column(
+                children: [
+                  Text(
+                    fetchResult.isRetrievedFromCache
+                        ? 'Retrieved from cache'
+                        : 'Retrieved from network',
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                  ...fetchResult.persons
+                      .map((person) => Text('${person.name} - ${person.age}')),
+                ],
+              ); */
+            }),
+          ),
+        ],
+      ),
     );
   }
 }
 
-
-
 // 2 */
-
 
 /* 1 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
