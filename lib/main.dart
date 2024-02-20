@@ -1,4 +1,97 @@
+// /* 2
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+@immutable
+abstract class LoadAction {
+  const LoadAction();
+}
+
+enum PersonUrl {
+  persons1,
+  persons2,
+}
+
+@immutable
+class LoadPersonsAction extends LoadAction {
+  const LoadPersonsAction({required this.url}) : super();
+
+  final PersonUrl url;
+}
+
+extension UrlString on PersonUrl {
+  String get urlString {
+    switch (this) {
+      case PersonUrl.persons1:
+        return 'http://127.0.0.1:5500/api/persons1.json';
+      case PersonUrl.persons2:
+        return 'http://127.0.0.1:5500/api/persons2.json';
+    }
+  }
+}
+
+@immutable
+class Person {
+  const Person({required this.name, required this.age});
+
+  final String name;
+  final int age;
+
+  Person.fromJson(Map<String, dynamic> json)
+      : name = json['name'] as String,
+        age = json['age'] as int;
+}
+
+Future<Iterable<Person>> getPersons(String url) => HttpClient()
+    .getUrl(Uri.parse(url))
+    .then((request) => request.close())
+    .then((response) => response.transform(utf8.decoder).join())
+    .then((str) => json.decode(str) as List<dynamic>)
+    .then(
+        (list) => list.map((e) => Person.fromJson(e as Map<String, dynamic>)));
+
+@immutable
+class FetchResult {
+  final Iterable<Person> persons;
+  final bool isRetrievedFromCache;
+
+  const FetchResult({
+    required this.persons,
+    required this.isRetrievedFromCache,
+  });
+
+  @override
+  String toString() =>
+      'FetchResult : isRetrievedFromCache: $isRetrievedFromCache, persons: $persons';
+}
+
+class PersonsBloc extends Bloc<LoadAction, FetchResult?> {
+  PersonsBloc() : super(null) {
+    on<LoadPersonsAction>((event, emit) async {
+      final url = event.url;
+      if (_cache.containsKey(url)) {
+        final cachedPersons = _cache[url]!;
+        final result = FetchResult(
+          persons: cachedPersons,
+          isRetrievedFromCache: true,
+        );
+        emit(result);
+      } else {
+        final persons = await getPersons(url.urlString);
+        _cache[url] = persons;
+        final result = FetchResult(
+          persons: persons,
+          isRetrievedFromCache: false,
+        );
+        emit(result);
+      }
+    });
+  }
+  final Map<PersonUrl, Iterable<Person>> _cache = {};
+}
 
 void main() {
   runApp(
@@ -8,7 +101,10 @@ void main() {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: BlocProvider(
+        create: (_) => PersonsBloc(),
+        child: const HomePage(),
+      ),
     ),
   );
 }
@@ -28,8 +124,7 @@ class HomePage extends StatelessWidget {
 
 
 
-
-
+// 2 */
 
 
 /* 1 import 'package:flutter/material.dart';
