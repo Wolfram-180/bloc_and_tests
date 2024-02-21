@@ -48,7 +48,10 @@ void main() {
       blocTest<PersonsBloc, FetchResult?>(
         'Test initial state',
         build: () => bloc,
-        verify: (bloc) => bloc.state == null,
+        verify: (bloc) => expect(
+          bloc.state,
+          null,
+        ),
       );
 
 // fetch mock data (persons1) and compare it with FetchResult
