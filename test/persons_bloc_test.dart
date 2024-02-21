@@ -1,8 +1,8 @@
-import 'package:bloc_example/bloc/person.dart';
-import 'package:bloc_example/bloc/persons_bloc.dart';
+import 'package:bloc_example/part_2_test_bloc/person.dart';
+import 'package:bloc_example/part_2_test_bloc/persons_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bloc_test/bloc_test.dart';
-import 'package:bloc_example/bloc/bloc_actions.dart';
+import 'package:bloc_example/part_2_test_bloc/bloc_actions.dart';
 
 const mockedPerson1 = [
   Person(

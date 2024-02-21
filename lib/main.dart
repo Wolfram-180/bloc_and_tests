@@ -1,4 +1,37 @@
-// /* 2
+// /* 3
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(
+    MaterialApp(
+      title: 'Test app',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const HomePage(),
+    ),
+  );
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Home page'),
+      ),
+    );
+  }
+}
+
+
+
+// 3 */
+
+/* 2
 import 'dart:convert';
 import 'dart:io';
 import 'package:bloc_example/bloc/bloc_actions.dart';
@@ -100,7 +133,7 @@ class HomePage extends StatelessWidget {
   }
 }
 
-// 2 */
+2 */
 
 /* 1 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';

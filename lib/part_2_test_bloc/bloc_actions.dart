@@ -1,4 +1,4 @@
-import 'package:bloc_example/bloc/person.dart';
+import 'package:bloc_example/part_2_test_bloc/person.dart';
 import 'package:flutter/foundation.dart' show immutable;
 
 const persons1Url = 'http://127.0.0.1:5500/api/persons1.json';
