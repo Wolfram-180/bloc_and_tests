@@ -1,4 +1,4 @@
-import 'package:bloc_example/strings.dart' show enterYourEmailHere;
+import 'package:bloc_example/part_5/strings.dart' show enterYourEmailHere;
 import 'package:flutter/material.dart';
 
 class EmailTextField extends StatelessWidget {

@@ -1,11 +1,11 @@
-import 'package:bloc_example/apis/login_api.dart';
-import 'package:bloc_example/apis/notes_api.dart';
-import 'package:bloc_example/bloc/actions.dart';
-import 'package:bloc_example/bloc/app_bloc.dart';
-import 'package:bloc_example/bloc/app_state.dart';
+import 'package:bloc_example/part_5/apis/login_api.dart';
+import 'package:bloc_example/part_5/apis/notes_api.dart';
+import 'package:bloc_example/part_5/bloc/actions.dart';
+import 'package:bloc_example/part_5/bloc/app_bloc.dart';
+import 'package:bloc_example/part_5/bloc/app_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bloc_test/bloc_test.dart';
-import 'package:bloc_example/models.dart';
+import 'package:bloc_example/part_5/models.dart';
 import 'package:flutter/foundation.dart' show immutable;
 
 const Iterable<Note> mockNotes = [

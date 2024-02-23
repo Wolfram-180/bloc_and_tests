@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:bloc_example/dialogs/loading_screen_controller.dart';
+import 'package:bloc_example/part_5/dialogs/loading_screen_controller.dart';
 import 'package:flutter/material.dart';
 
 class LoadingScreen {

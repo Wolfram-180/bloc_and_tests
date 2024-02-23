@@ -1,4 +1,35 @@
-// /* 3
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(
+    MaterialApp(
+      title: 'Test app',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const HomePage(),
+    ),
+  );
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Home page'),
+      ),
+    );
+  }
+}
+
+
+
+
+/* 5
 import 'package:bloc_example/apis/login_api.dart';
 import 'package:bloc_example/apis/notes_api.dart';
 import 'package:bloc_example/bloc/actions.dart';
@@ -101,10 +132,7 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-
-
-
-// 3 */
+5 */
 
 /* 2
 import 'dart:convert';

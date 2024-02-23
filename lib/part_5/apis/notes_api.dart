@@ -1,4 +1,4 @@
-import 'package:bloc_example/models.dart';
+import 'package:bloc_example/part_5/models.dart';
 import 'package:flutter/foundation.dart' show immutable;
 
 @immutable

@@ -1,4 +1,4 @@
-import 'package:bloc_example/strings.dart' show enterYourPasswordHere;
+import 'package:bloc_example/part_5/strings.dart' show enterYourPasswordHere;
 import 'package:flutter/material.dart';
 
 class PasswordTextField extends StatelessWidget {

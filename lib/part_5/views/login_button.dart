@@ -1,5 +1,5 @@
-import 'package:bloc_example/dialogs/generic_dialog.dart';
-import 'package:bloc_example/strings.dart'
+import 'package:bloc_example/part_5/dialogs/generic_dialog.dart';
+import 'package:bloc_example/part_5/strings.dart'
     show
         emailOrPasswordEmptyDescription,
         emailOrPasswordEmptyDialogTitle,
