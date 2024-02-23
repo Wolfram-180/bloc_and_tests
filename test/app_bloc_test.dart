@@ -3,15 +3,10 @@ import 'package:bloc_example/apis/notes_api.dart';
 import 'package:bloc_example/bloc/actions.dart';
 import 'package:bloc_example/bloc/app_bloc.dart';
 import 'package:bloc_example/bloc/app_state.dart';
-import 'package:bloc_example/part_2_test_bloc/person.dart';
-import 'package:bloc_example/part_2_test_bloc/persons_bloc.dart';
-import 'package:bloc_example/strings.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bloc_test/bloc_test.dart';
-import 'package:bloc_example/part_2_test_bloc/bloc_actions.dart';
 import 'package:bloc_example/models.dart';
 import 'package:flutter/foundation.dart' show immutable;
-import 'package:collection/collection.dart';
 
 const Iterable<Note> mockNotes = [
   Note(title: 'Note 1'),
