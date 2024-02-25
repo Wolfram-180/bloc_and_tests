@@ -3,10 +3,6 @@ import 'package:bloc_example/bloc/top_bloc.dart';
 import 'package:bloc_example/models/constants.dart';
 import 'package:bloc_example/views/app_bloc_view.dart';
 import 'package:flutter/material.dart';
-import 'package:bloc_example/bloc/app_bloc.dart';
-import 'package:bloc_example/bloc/app_state.dart';
-import 'package:bloc_example/bloc/bloc_events.dart';
-import 'package:bloc_example/extensions/stream/start_with.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/services.dart' show SystemUiOverlayStyle;
 
