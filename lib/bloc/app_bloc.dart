@@ -1,5 +1,6 @@
 import 'package:bloc_example/bloc/app_state.dart';
 import 'package:bloc_example/bloc/bloc_events.dart';
+import 'package:bloc_example/secrets.dart';
 import 'package:flutter/foundation.dart' show immutable;
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,7 +34,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
             error: null,
           ),
         );
-        final url = (urlPicker ?? _pickRandomUrl)(urls);
+        final url = pathToImg + (urlPicker ?? _pickRandomUrl)(urls);
         try {
           // simulate loading
           await Future<void>.delayed(

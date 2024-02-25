@@ -1,3 +1,4 @@
+import 'package:bloc_example/views/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,19 +12,6 @@ void main() {
       home: const HomePage(),
     ),
   );
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home page'),
-      ),
-    );
-  }
 }
 
 
