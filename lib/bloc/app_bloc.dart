@@ -9,6 +9,8 @@ typedef AppBlocRandomUrlPicker = String Function(
   Iterable<String> allUrls,
 );
 
+typedef AppBlocUrlLoader = Future<Uint8List> Function(String url);
+
 extension RandomElement<T> on Iterable<T> {
   T getRandomElement() => elementAt(Random().nextInt(length));
 }
@@ -16,10 +18,19 @@ extension RandomElement<T> on Iterable<T> {
 class AppBloc extends Bloc<AppEvent, AppState> {
   String _pickRandomUrl(Iterable<String> allUrls) => allUrls.getRandomElement();
 
+  Future<Uint8List> _loadUrl(String url) => NetworkAssetBundle(
+        Uri.parse(
+          url,
+        ),
+      ).load(url).then(
+            (byteData) => byteData.buffer.asUint8List(),
+          );
+
   AppBloc({
     required Iterable<String> urls,
     Duration? waitBeforeloading,
     AppBlocRandomUrlPicker? urlPicker,
+    AppBlocUrlLoader? urlLoader,
   }) : super(
           const AppState.empty(),
         ) {
@@ -37,17 +48,11 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         try {
           // simulate loading
           await Future<void>.delayed(
-              waitBeforeloading ?? const Duration(seconds: 2),);
-          final bundle = NetworkAssetBundle(
-            Uri.parse(
-              url,
-            ),
+            waitBeforeloading ?? const Duration(seconds: 2),
           );
-          final data = (await bundle.load(
-            url,
-          ))
-              .buffer
-              .asUint8List();
+
+          final data = await (urlLoader ?? _loadUrl)(url);
+
           // loading done
           emit(
             AppState(
