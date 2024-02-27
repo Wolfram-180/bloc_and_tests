@@ -12,8 +12,12 @@ extension ToList on String {
       );
 }
 
-final text1Data = 'text1'.toUint8List();
-final text2Data = 'text2'.toUint8List();
+final text1Data = 'Foo'.toUint8List();
+final text2Data = 'Bar'.toUint8List();
+
+enum Errors {
+  dummy,
+}
 
 void main() {
   blocTest<AppBloc, AppState>(
@@ -29,7 +33,7 @@ void main() {
 
   // load valid data and compare states
   blocTest<AppBloc, AppState>(
-    'Initial state should be empty',
+    'test one url load',
     build: () => AppBloc(
       urls: [],
       urlPicker: (_) => '',
@@ -54,11 +58,13 @@ void main() {
 
 // test throwing an error from url loader
   blocTest<AppBloc, AppState>(
-    'Initial state should be empty',
+    'Throw an error in url loader and catch it',
     build: () => AppBloc(
       urls: [],
       urlPicker: (_) => '',
-      urlLoader: (_) => Future.value(text1Data),
+      urlLoader: (_) => Future.error(
+        Errors.dummy,
+      ),
     ),
     act: (appBloc) => appBloc.add(
       const LoadNextUrlEvent(),
@@ -69,9 +75,49 @@ void main() {
         data: null,
         error: null,
       ),
+      const AppState(
+        isLoading: false,
+        data: null,
+        error: Errors.dummy,
+      ),
+    ],
+  );
+
+// load valid data and compare states
+  blocTest<AppBloc, AppState>(
+    'test more than one url load',
+    build: () => AppBloc(
+      urls: [],
+      urlPicker: (_) => '',
+      urlLoader: (_) => Future.value(text2Data),
+    ),
+    act: (appBloc) {
+      appBloc.add(
+        const LoadNextUrlEvent(),
+      );
+      appBloc.add(
+        const LoadNextUrlEvent(),
+      );
+    },
+    expect: () => [
+      const AppState(
+        isLoading: true,
+        data: null,
+        error: null,
+      ),
       AppState(
         isLoading: false,
-        data: text1Data,
+        data: text2Data,
+        error: null,
+      ),
+      const AppState(
+        isLoading: true,
+        data: null,
+        error: null,
+      ),
+      AppState(
+        isLoading: false,
+        data: text2Data,
         error: null,
       ),
     ],
